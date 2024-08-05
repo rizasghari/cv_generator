@@ -19,6 +19,24 @@ func GetMockResume() models.Resume {
 				City:    " Kağıthane",
 			},
 		},
+		Skills: &[]models.Skill {
+			{
+				Name: "Golang",
+				Level: 4,
+			},
+			{
+				Name: "Flutter",
+				Level: 5,
+			},
+			{
+				Name: "PostgreSQL",
+				Level: 3,
+			},
+			{
+				Name: "Docker",
+				Level: 2,
+			},
+		},
 		Summary: models.Summary{
 			Description: "Seasoned Software Engineering Manager with extensive experience in leading software development teams and managing complex projects from conception to deployment. Expert in mobile and web application development with a proven track record of integrating Agile frameworks to enhance product quality and operational efficiency. Skilled in fostering cross-functional collaboration and directly engaging with high-level stakeholders to ensure project success and customer satisfaction. Demonstrates a strong command of containerization technologies, software architecture, and cloud infrastructures, coupled with a dedication to mentoring teams and driving continuous innovation and improvement.",
 		},
