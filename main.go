@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/rizasgahri/cv_builder/configs"
+	"github.com/rizasgahri/cv_builder/internal/mock"
 	"github.com/rizasgahri/cv_builder/internal/models"
 	"github.com/rizasgahri/cv_builder/internal/services"
 )
@@ -23,5 +24,6 @@ func main() {
 		models.Template{
 			Name: *templateName,
 		},
+		mock.GetMockResume(),
 	)
 }

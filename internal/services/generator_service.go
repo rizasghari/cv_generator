@@ -3,6 +3,7 @@ package services
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"mime/multipart"
@@ -23,59 +24,75 @@ type GeneratorService struct {
 func NewGeneratorService(config *configs.Config) *GeneratorService {
 	return &GeneratorService{
 		httpClient: http.Client{},
-		config: *config,
+		config:     *config,
 	}
 }
 
-func (gs *GeneratorService) Generate(template models.Template) {
-	// URL of the API
-	url := fmt.Sprintf("%v%v",
+func (gs *GeneratorService) gethtml2PdfEndpoint() string {
+	return fmt.Sprintf("%v%v",
 		gs.config.Viper.GetString("gotenberg.baseUrl"),
 		gs.config.Viper.GetString("gotenberg.endpoints.html2pdf"),
 	)
+}
 
-	// Path to the HTML file
-	htmlPath := filepath.Join("internal", "static", "templates", template.Name, "index.html")
+func (gs *GeneratorService) getHtmlFilePath(templ models.Template) string {
+	htmlPath := filepath.Join("internal", "static", "templates", templ.Name, "index.html")
 
-	// Open the file
 	file, err := os.Open(htmlPath)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
-	// Create a buffer to store the multipart form data
-	var requestBody bytes.Buffer
+	return htmlPath
+}
 
-	// Create a multipart writer
-	multipartWriter := multipart.NewWriter(&requestBody)
-
-	// Add the file part to the multipart form
-	filePart, err := multipartWriter.CreateFormFile("files", htmlPath)
+func (gs *GeneratorService) executeHtml(htmlPath string, data models.Resume, buffer *bytes.Buffer) {
+	// Load and parse the template
+	html, err := template.ParseFiles(htmlPath)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	// Copy the file data to the multipart writer
-	_, err = io.Copy(filePart, file)
-	if err != nil {
-		panic(err)
+	// Execute the template and store the output
+	if err := html.Execute(buffer, data); err != nil {
+		log.Fatal(err)
 	}
+}
 
-	// Close the multipart writer to finalize the form data
-	err = multipartWriter.Close()
+func (gs *GeneratorService) Generate(templ models.Template, resume models.Resume) {
+	// URL of the API
+	url := gs.gethtml2PdfEndpoint()
+
+	// Path to the HTML file
+	htmlPath := gs.getHtmlFilePath(templ)
+
+	// Load, parse and execute the template and store the output
+	var executedHtml bytes.Buffer
+	gs.executeHtml(htmlPath, resume, &executedHtml)
+	
+	var b bytes.Buffer
+	w := multipart.NewWriter(&b)
+
+	// Create form file
+	fw, err := w.CreateFormFile("file", "index.html")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+	if _, err := fw.Write(executedHtml.Bytes()); err != nil {
+		log.Fatal(err)
+	}
+	// Close the multipart writer to set the terminating boundary
+	w.Close()
 
 	// Create an HTTP request
-	request, err := http.NewRequest("POST", url, &requestBody)
+	request, err := http.NewRequest("POST", url, &b)
 	if err != nil {
 		panic(err)
 	}
 
 	// Set the Content-Type header, including the boundary parameter
-	request.Header.Set("Content-Type", multipartWriter.FormDataContentType())
+	request.Header.Set("Content-Type", w.FormDataContentType())
 
 	// Create an HTTP client and send the request
 	response, err := gs.httpClient.Do(request)

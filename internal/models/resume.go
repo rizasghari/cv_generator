@@ -37,14 +37,14 @@ type Skill struct {
 }
 
 type Experience struct {
-	Employer    string     `json:"employer"`
-	Role        string     `json:"role"`
-	StartDate   time.Time  `json:"start_date"`
-	EndDate     *time.Time `json:"end_date"`
-	Present     bool       `json:"is_present"`
-	Remote      bool       `json:"is_remote"`
-	Location    *Location  `json:"location"`
-	Description string     `json:"description"`
+	Employer    string    `json:"employer"`
+	Role        string    `json:"role"`
+	StartDate   time.Time `json:"start_date"`
+	EndDate     time.Time `json:"end_date"`
+	Present     bool      `json:"is_present"`
+	Remote      bool      `json:"is_remote"`
+	Location    *Location `json:"location"`
+	Description string    `json:"description"`
 }
 
 type Education struct {

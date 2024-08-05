@@ -21,8 +21,8 @@
 <body>
     <div class="container">
         <header>
-            <h1>John Doe</h1>
-            <p>Email: john.doe@example.com | Phone: 555-123-4567 | Address: 123 Main St, Hometown, USA</p>
+            <h1>{{.Contact.FirstName}} {{.Contact.LastName}}</h1>
+            <p>Email: {{.Contact.Email}} | Phone: {{.Contact.Phone}} | Address: {{.Contact.Location.City}}/{{.Contact.Location.State}}/{{.Contact.Location.Country}}</p>
         </header>
         <section class="summary">
             <h2>Professional Summary</h2>
