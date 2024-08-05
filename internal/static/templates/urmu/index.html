@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Jane Smith</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            color: #333;
+        }
+        header p {
+            color: #666;
+            font-size: 16px;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section-title {
+            color: #333;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 0;
+        }
+        .skills-grid div {
+            background: #007BFF;
+            color: #fff;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+        }
+        .experience-item, .education-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .job-title, .institution {
+            font-weight: bold;
+        }
+        .details {
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Jane Smith</h1>
+            <p>Web Developer | jane.smith@example.com | (123) 456-7890</p>
+        </header>
+        <section class="bio">
+            <h2 class="section-title">Biography</h2>
+            <p>I am a passionate Web Developer with over 8 years of experience in the industry, specializing in front-end technologies. I thrive on creating engaging creative solutions that balance usability and functionality with aesthetic design.</p>
+        </section>
+        <section class="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div>HTML/CSS</div>
+                <div>JavaScript</div>
+                <div>React</div>
+                <div>Vue.js</div>
+                <div>Node.js</div>
+                <div>Project Management</div>
+            </div>
+        </section>
+        <section class="experience">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-item">
+                <p class="job-title">Lead Front-End Developer</p>
+                <p class="details">Tech Innovations, Inc. - San Francisco, CA</p>
+                <p class="details">April 2016 - Present</p>
+                <ul>
+                    <li>Directed a team of front-end developers in creating interactive, responsive websites and apps for high-profile clients.</li>
+                    <li>Implemented new JavaScript features that increased site responsiveness by 30%.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <p class="job-title">Senior Web Developer</p>
+                <p class="details">Creative Solutions, Inc. - New York, NY</p>
+                <p class="details">June 2012 - March 2016</p>
+                <ul>
+                    <li>Developed and maintained complex front-end architecture for interactive web applications.</li>
+                    <li>Optimized web performance reducing load time by 25%.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="education">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <p class="institution">Bachelor of Science in Computer Science</p>
+                <p class="details">University of California, Berkeley</p>
+                <p class="details">Graduated: 2012</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

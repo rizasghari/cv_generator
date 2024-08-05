@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/rizasgahri/cv_builder/configs"
+	"github.com/rizasgahri/cv_builder/internal/models"
 )
 
 type GeneratorService struct {
@@ -26,7 +27,7 @@ func NewGeneratorService(config *configs.Config) *GeneratorService {
 	}
 }
 
-func (gs *GeneratorService) Generate() {
+func (gs *GeneratorService) Generate(template models.Template) {
 	// URL of the API
 	url := fmt.Sprintf("%v%v",
 		gs.config.Viper.GetString("gotenberg.baseUrl"),
@@ -34,7 +35,7 @@ func (gs *GeneratorService) Generate() {
 	)
 
 	// Path to the HTML file
-	htmlPath := filepath.Join("internal", "static", "templates", "index.html")
+	htmlPath := filepath.Join("internal", "static", "templates", template.Name, "index.html")
 
 	// Open the file
 	file, err := os.Open(htmlPath)
