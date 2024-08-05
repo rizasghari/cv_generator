@@ -1,3 +1,6 @@
+# CV Generator
 A simple resume pdf file builder web app developed with GoLang
-To run the app:
+
+## Run
+```bash
 docker compose up --build
