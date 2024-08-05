@@ -4,6 +4,11 @@ app:
   environment: "development"
   debug: true
 
+gotenberg:
+  baseUrl: "http://localhost:3000"
+  endpoints:
+    html2pdf: "/forms/chromium/convert/html"
+
 # Server Configuration
 server:
   port: 8000

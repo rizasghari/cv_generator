@@ -2,29 +2,39 @@ package services
 
 import (
 	"bytes"
+	"fmt"
 	"io"
+	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
+
+	"github.com/rizasgahri/cv_builder/configs"
 )
- 
+
 type GeneratorService struct {
 	httpClient http.Client
+	config     configs.Config
 }
 
-func NewGeneratorService() *GeneratorService {
+func NewGeneratorService(config *configs.Config) *GeneratorService {
 	return &GeneratorService{
-		httpClient:  http.Client{},
+		httpClient: http.Client{},
+		config: *config,
 	}
 }
 
 func (gs *GeneratorService) Generate() {
 	// URL of the API
-	url := "http://localhost:3000/forms/chromium/convert/html"
+	url := fmt.Sprintf("%v%v",
+		gs.config.Viper.GetString("gotenberg.baseUrl"),
+		gs.config.Viper.GetString("gotenberg.endpoints.html2pdf"),
+	)
 
 	// Path to the HTML file
-	htmlPath := filepath.Join("internal", "static", "templates", "basic.html")
+	htmlPath := filepath.Join("internal", "static", "templates", "index.html")
 
 	// Open the file
 	file, err := os.Open(htmlPath)
@@ -79,7 +89,8 @@ func (gs *GeneratorService) Generate() {
 	}
 
 	// Save the PDF file
-	pdfFile, err := os.Create("my.pdf")
+	output := fmt.Sprintf("outputs/cv_%v.pdf", time.Now().Unix())
+	pdfFile, err := os.Create(output)
 	if err != nil {
 		panic(err)
 	}
@@ -91,6 +102,5 @@ func (gs *GeneratorService) Generate() {
 		panic(err)
 	}
 
-	println("PDF successfully saved as my.pdf")
+	log.Printf("PDF successfully saved: %v", output)
 }
-
