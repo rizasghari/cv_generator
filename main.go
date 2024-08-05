@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"log"
+
 	"github.com/rizasgahri/cv_builder/configs"
 	"github.com/rizasgahri/cv_builder/internal/models"
 	"github.com/rizasgahri/cv_builder/internal/services"
@@ -10,14 +12,16 @@ import (
 func main() {
 	templateName := flag.String("template", "default", "Provide the template {default|urmu}")
 	flag.Parse()
-
-	template := models.Template{
-		Name: *templateName,
+	if templateName == nil {
+		log.Fatal("The template was not specified!")
 	}
 
 	configs := configs.GetConfig()
 
 	generator := services.NewGeneratorService(configs)
-
-	generator.Generate(template)
+	generator.Generate(
+		models.Template{
+			Name: *templateName,
+		},
+	)
 }
