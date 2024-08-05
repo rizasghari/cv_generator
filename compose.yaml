@@ -1,0 +1,13 @@
+services:
+  cv-builder-app:
+    container_name: cv-builder-app
+    build: .
+    ports:
+      - 8000:8000
+    entrypoint: ./cv-builder
+
+  gotenberg:
+    image: gotenberg/gotenberg:8
+    ports:
+      - "3000:3000"
+      # http://localhost:3000.

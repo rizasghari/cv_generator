@@ -1,0 +1,31 @@
+# Application Configuration
+app:
+  name: "CV Builder"
+  environment: "development"
+  debug: true
+
+# Server Configuration
+server:
+  port: 8000
+  host: "localhost"
+  timeout:
+    read: 10s
+    write: 10s
+    idle: 30s
+
+# Database Configuration
+database:
+  host: "localhost"
+  port: 5432
+  user: "admin"
+  password: "securepassword"
+  name: "exampledb"
+  maxConnections: 10
+  enableLogging: false
+
+# Logging Configuration
+logging:
+  level: "debug"
+  format: "json"
+  output: "file"
+  path: "/var/log/exampleapp.log"
