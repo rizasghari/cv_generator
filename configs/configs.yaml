@@ -11,7 +11,7 @@ gotenberg:
 
 # Server Configuration
 server:
-  port: 8000
+  port: 8080
   host: "localhost"
   timeout:
     read: 10s
