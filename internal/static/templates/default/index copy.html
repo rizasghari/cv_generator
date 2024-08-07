@@ -80,25 +80,34 @@
         <section class="skills">
             <h2>Skills</h2>
             <ul class="skills-list">
-                <li>{{ .Skills.Name }}</li>
+                {{ range .Skills }}
+                <li>{{ .Name }}</li>
+                {{ end }}
             </ul>
         </section>
         <section class="experience">
             <h2>Professional Experience</h2>
+            {{ range .Experiences }}
             <article>
-                <p class="job-title">{{ .Experiences.Role }}</p>
-                <p class="company">{{ .Experiences.Employer }}</p>
-                <p>{{ .Experiences.StartDate }} - {{ .Experiences.EndDate }}</p>
-                <p>{{ .Experiences.Description }}</p>
+                <p class="job-title">{{ .Role }}</p>
+                <p class="company">{{ .Employer }}</p>
+                <p>{{ .StartDate }} - {{ .EndDate }}</p>
+                <p>
+                    {{ .Description }}
+                </p>
             </article>
+            {{ end }}
+
         </section>
         <section class="education">
             <h2>Education</h2>
+            {{ range .Educations }}
             <article>
-                <p class="job-title">{{ .Educations.Field }}</p>
-                <p class="company">{{ .Educations.School }}</p>
-                <p>Graduated: {{ .Educations.GraduationDate }}</p>
+                <p class="job-title">{{ .Field }}</p>
+                <p class="company">{{ .School }}</p>
+                <p>Graduated: {{ .GraduationDate }}</p>
             </article>
+            {{ end }}
         </section>
     </div>
 </body>
